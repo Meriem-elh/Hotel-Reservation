@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorate="template1">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+
+	<!-- Reference Google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+	<!-- Reference Bootstrap and local files -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+
+	<link rel="stylesheet" th:href="@{css/slick.css}">
+	<link rel="stylesheet" th:href="@{css/slick-theme.css}">
+	<link rel="stylesheet" th:href="@{css/your-reservations.css}">
+	<link rel="icon" th:href="@{images/header/white-logo.png}">
+
+	<title>Your Reservation</title>
+</head>
+
+<body>
+<div layout:fragment="content1">
+
+	<!-- Main Cover Section -->
+	<section class="cover-main" id="home">
+		<header>
+			<nav class="nav-wrapper">
+				
+
+				
+			</nav>
+			<div class="menu-trigger js-menu-trigger"></div>
+		</header>
+
+		<!-- Main buttons and title -->		
+		<div class="wrapper">
+			<ul id="scene" data-invert-x="false" data-invert-y="false" data-scalar-x="7" data-scalar-y="7"
+				data-friction-x="0.1" data-friction-y="0.1" data-origin-x="0.5" data-origin-y="0.5">
+				<li class="layer name" data-depth="0.90">Your Reservations</li>
+				<li class="layer btn btn-main" data-depth="0.30"><a th:href="@{/Reservation}" class="res-btn">Tous les
+						Reservation</a> <br>
+			</ul>
+		</div>
+	</section>
+
+	<!-- Reservations Table Section -->
+	 <table class="table">
+				<thead>
+					<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Room</th>
+					<th>Persons</th>
+					<th>Children</th>
+				
+					<th>Date Debut</th>
+					<th>Total Price</th>
+					<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each=" tempRes : ${resList}">
+										<td style="text-align: center; vertical-align: middle;" th:text="${tempRes.id}" />
+					
+					<td style="text-align: center; vertical-align: middle;" th:text="${tempRes.username}" />
+					
+					<td style="text-align: center; vertical-align: middle;" th:text="${tempRes.rooms}" />
+					<td style="text-align: center; vertical-align: middle;" th:text="${tempRes.persons}" />
+					<td style="text-align: center; vertical-align: middle;" th:text="${tempRes.children}" />
+					<td style="text-align: center; vertical-align: middle;" th:text="${tempRes.dateDebut}" />
+					
+					<td style="text-align: center; vertical-align: middle;" th:text="${tempRes.price}" />
+					<td ><a   th:href="@{deleteR(id=${tempRes.id})}" onclick="return confirm('Etes vous sur ?')"  class="btn btn-danger">
+						Annuler</a>
+						 
+						</td>
+						<td ><a   th:href="@{editR(id=${tempRes.id})}" onclick="return confirm('Etes vous sur ?')"  class="btn ">
+						Modifier</a>
+						 
+						</td>
+						
+				</tr>
+				</tbody>
+				</table>
+	<section>
+
+	</section>
+
+
+	<!-- Reference Javascript and local files -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js"></script>
+	
+	<script th:src="@{scripts/reservation.js}"></script>
+</div>
+</body>
+
+</html>

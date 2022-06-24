@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security"
+layout:decorate="template1">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content1">
+<div class="container mt-2" sec:authorize="hasRole('ADMIN')">
+	<div class="card">
+		<div class="card-header">Liste des employées </div>
+		<div class="card-body">
+		<form method="get" th:action="@{index}">
+			<label>Keyword</label>
+			<input type="text" name="keyword" th:value="${keyword}">
+			<button type="submit" class="btn btn-primary">Chercher</button>
+		
+		
+		
+		</form>
+		  <table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Nom</th>
+						<th>Date</th>
+						<th>Email</th>
+						<th>Departement</th>
+						<th>ACTION</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="p:${employee}">
+						<td th:text="${p.id}"></td>
+						<td th:text="${p.username}"></td>
+						<td th:text="${p.dateNaissance}"></td>
+						
+						<td th:text="${p.email}"></td>
+						<td th:text="${p.departement}"></td>
+						<td ><a onclick="return confirm('Etes vous sur ?')" 
+						class="btn btn-danger" 
+						th:href="@{delete(id=${p.id},keyword=${keyword},page=${currentpage})}">
+						Delete</a>
+						 
+						</td>
+						<td ><a   class="btn btn-success" 
+						th:href="@{editEmployee(id=${p.id},keyword=${keyword},page=${currentpage})}">
+						Modifier</a>
+						 
+						</td>
+									
+					</tr>
+				</tbody>
+				</table>
+				<ul class="nav nav-pills">
+				<li th:each="page,status:${pages}">
+					<a th:class="${status.index==currentpage?'btn btn-primary ms-1':'btn btn-outline-primary ms-1'}" 
+					th:text="${status.index}" 
+					th:href="@{index(page=${status.index},keyword=${keyword})}"
+					 class="ml"></a>
+				
+				</li>
+				</ul>
+		
+		</div>
+	
+	</div>
+
+</div>
+
+</div>
+</body>
+</html>
